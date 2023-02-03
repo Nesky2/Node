@@ -14,14 +14,12 @@
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: repeat(1);
-
         }
         .grid_row {
         grid-column: 4/10;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-    
+        justify-content: start;
     }
         li {
         text-align:justify;
@@ -44,20 +42,13 @@
         }
        </style>
 </head>
+</head>
 <body>
-    <div class="mainGrid">
-        <div id ="summa" class="grid_row">
+    <div id="p">
+        <ol>
             <%- rep %>
-            <a href="/" style="color: rgb(21, 196, 196); text-decoration: none; text-align: center; font-size: 25px;">Back </a>
-        </div>
-        <div> 
-        </div>       
+        </ol>
+        
     </div>
-    <script>
-    const str = document.getElementsByTagName('il').innerHTML;
-    const replacedString = str.replace("funy", "розваги");
-    document.getElementsByTagName('il').innerHTML = replacedString;
-   </script>
-
 </body>
 </html> 

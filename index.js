@@ -30,7 +30,37 @@ app.get('/report', (req, res) => {
         const result2 = NazarElementsStrings
             .map(str => JSON.parse(str))
             .filter(obj => obj.User === 'Nazar')
-            .map(obj => `${obj.User} Витратив на: ${obj.options} Суму: ${obj.summa}, Коментар: ${obj.comment}. Дата: ${obj.Data}; <br>`)
+            .map(obj => {
+                if (obj.options === "cat") {
+                obj.options = "Кота";
+                }
+                else if (obj.options === "eda") {
+                    obj.options = "Їжу";
+                }
+                else if (obj.options === "car") {
+                    obj.options = "Машину";
+                }
+                else if (obj.options === "home") {
+                    obj.options = "Дім";
+                }
+                else if (obj.options === "funy") {
+                    obj.options = "Розваги";
+                }
+                else if (obj.options === "other") {
+                    obj.options = "Інше";
+                }
+                else if (obj.options === "medecine") {
+                    obj.options = "Ліки";
+                }
+                else if (obj.options === "unheatly") {
+                    obj.options = "Шкідливі звички";
+                }
+                else if (obj.options === "travel") {
+                    obj.options = "Подорожі";
+                }
+                obj.User = "Назар"
+                return `<li>${obj.Data} | ${obj.User} Витратив на: ${obj.options} ${obj.summa} грн, Коментар: ${obj.comment || " - "};</li>`;
+                })
             .join('\n');
         console.log(result2);
         res.render('report', { rep: req.params = result2 })
@@ -38,6 +68,55 @@ app.get('/report', (req, res) => {
     
     });
 })
+app.get('/reportIra', (req, res) => {
+
+    get.getmain().then(result => {
+        let travel;
+        const NazarElements = result.filter(element => element.User === 'Ira');
+        const NazarElementsStrings = NazarElements.map(element => JSON.stringify(element));
+        const result2 = NazarElementsStrings
+            .map(str => JSON.parse(str))
+            .filter(obj => obj.User === 'Ira')
+            .map(obj => {
+                if (obj.options === "cat") {
+                obj.options = "Кота";
+                }
+                else if (obj.options === "eda") {
+                    obj.options = "Їжу";
+                }
+                else if (obj.options === "car") {
+                    obj.options = "Машину";
+                }
+                else if (obj.options === "home") {
+                    obj.options = "Дім";
+                }
+                else if (obj.options === "funy") {
+                    obj.options = "Розваги";
+                }
+                else if (obj.options === "other") {
+                    obj.options = "Інше";
+                }
+                else if (obj.options === "medecine") {
+                    obj.options = "Ліки";
+                }
+                else if (obj.options === "unheatly") {
+                    obj.options = "Шкідливі звички";
+                }
+                else if (obj.options === "travel") {
+                    obj.options = "Подорожі";
+                }
+                obj.User = "Іра"
+                return `<li>${obj.Data} | ${obj.User} Витратила на: ${obj.options} ${obj.summa} грн, Коментар: ${obj.comment || " - "};</li>`;
+                })
+            .join('\n');           
+        console.log(result2);
+        console.log(travel);
+        res.render('report', { rep: req.params = result2 })
+        console.log("Some one enter to main page! " + Date(Date.now()).toString())
+    
+    });
+})
+
 app.get('/Nazar', (req, res) => {
     let dataBase = "sumafornazar"
     get.main("eda",dataBase).then(result => {
